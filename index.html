@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title> Kinetic Molecular Theory with Particles on a RP2040 
+      </title>
+      <style>
+        h1 {text-align: center;}
+        p {text-align: left;
+        }
+        div {text-align: center;
+            padding-left:50px;
+            padding-right:50px;
+            padding-top:25px;
+            padding-bottom:25px;
+        }
+        .center {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        </style>
+   </head>
+   <body style="background:grey">
+        <header>
+            <!--text-align: center; 
+            padding: 20px;-->
+        </header>
+        <!--/*navigation bar style*/
+        nav {
+            text-align: center;
+            word-spacing: 30px;
+            padding: 10px;
+            background-color: #f5f5dc
+   
+        }-->
+
+        <main>
+            <div class = "Title" style="background:grey">
+                <h1>Kinetic Molecular Theory with Particles on a RP2040</h1>
+            </div>
+            <div class = "names">
+                <h2>Chih-Yu Arthur Chang (cc2535) and Miriya Pinkerman (mp2235)</h2>
+            </div>
+            <div class = "Demonstration_Video" style="background:grey;">
+                <div class="Demonstration_Video">
+                    <h1>Demonstration Video</h1>
+                    <!--<section>
+                        <p>The purpose of this lab is to use the RP2040, DAC, and VGA to create a kinetic molecular theory physics simulation.</p>
+                    </section>-->
+                </div>
+            </div>
+            <hr>
+            <div class="Objective" style="background:grey;">
+                <h1>Objective</h1>
+                <section>
+                    <p>The purpose of this lab is to use the RP2040, DAC, and VGA to create a kinetic molecular theory physics simulation.</p>
+                </section>
+            </div>
+            <hr>
+            <div class="Introduction" style="background:grey;">
+                <h1>Introduction</h1>
+                <section>
+                    <p> The boids lab earlier this semester inspired us to understand other natural phenomena, so naturally we began to research different physics theorems. Due to the nature of the boids lab we realized we could create an ideal gas law simulation that followed kinetic molecular theory. In order to verify the simulation was working as physics would expect, we implemented a representation of Boyle’s law and displayed the kinetic energy average of the particles. 
+                        </p>
+                </section>
+            </div>
+            <hr>
+            <div class="High_Level_Design" style="background:grey;">
+                <h1>High Level Design</h1>
+                <img src="Higher Level Block Diagram.png" alt="Higher Level Design" style="width:824px;height:416px;">
+                <p></p>
+                <section>
+                    <div class="Boids_Algorithm_Background">
+                        <h2>Boids Algorithm Background</h2>
+                        <section>
+                            <p></p>
+                        </section>
+                    </div>
+                    <div class="Ideal_Gas_Law_Background">
+                        <h2>Ideal Gas Law Background</h2>
+                        <section>
+                            <p>Our particle model is based on the five postulates of kinetic molecular theory: (1) Gas particles move linearly unless a the particle collides with another particle or a wall (2) volume between particles is negligible because the free space between them is large (3) the particles collisions are elastic, so no kinetic energy is lost during collisions (4) there is no forces of attraction and repulsion between particles (5)  the particles’ average kinetic energy is proportional to temperature.  Thus for a group of particles average kinetic energy should remain constant in the model which gives us that KEavg= 0.5*m*vrms^2, where vrms is the root mean square velocity and m is the mass of the particle. Furthermore, using KEavg based on temperature we could directly relate our temperature to the particles’ velocities such that vrms = sqrt(3RT/m). These postulates provide us with the ideal gas law PV = nRT, where P is pressure, V is volume, n is number of moles of a particle, R is the universal gas constant, and T is the temperature.
+                            </p>
+                            <p>In relation to collision in our model, initially ran the program assuming the collisions would result in the particles just moving at the velocity of those reaching it, but the downfall of this method was not every collision was based on the particles’ centers of mass. Based on this relationship a collision method had to be put in place. Using this new method and increasing visual range slightly we were able to create a more accurate collision model for the particles that kept our initial particle velocities consistent to what we expected.</p>
+                            <p>Another component of ideal gas law we implemented in our simulation was Boyle’s law. According to Boyle’s law pressure and volume are inversely related and thus P is proportional to 1/V. In order to make sure that our program was acting in this manner we assumed temperature would be a constant that the user could change from Putty. Through the implementation of calculating Boyle’s law at different temperatures, we had a theoretical check for our simulation’s pressure vs. volume relationship.</p>
+                            <p>An unexpected outcome of changing the temperature in this manner provided us with different isothermal graphs as derived in thermodynamics. Since the temperature was constant, change in temperature was zero and pressure vs. volume graph acted as one would expect isothermal graphs to act at different temperatures. In isothermal graphs as the temperature is increased energy within the system is increased, such a phenomenon was seen in our simulation as temperature was increased it had a direct impact on the kinetic energy average in our model.</p>
+                        </section>
+                    </div>
+                    <div class="Logical_Structure">
+                        <h2>Logical Structure</h2>
+                        <section>
+                            <p></p>
+                        </section>
+                    </div>  
+                    <div class="Hardware_Software_Tradeoffs">
+                        <h2>Hardware/Software Tradeoffs</h2>
+                        <section>
+                            <p></p>
+                        </section>
+                    </div>
+                    <div class="Relationship_Standards">
+                        <h2>Relationship to Standards</h2>
+                        <section>
+                            <p></p>
+                        </section>
+                    </div>
+            </div>
+            <hr>
+            <div class = "Program_hadrware_design" style="background:grey;">
+                <h1>Program Hardware Design</h1>
+                    <section>
+                        <p>Our first main objective was to adapt the boids code such that the particles collided like gas particles. From there we adapted the code so the user could input different amounts for the volume and see the different results of pressure (hitting rate per second) versus time. After getting a working model of the constant volume, we modified it by integrating a synthesized beep. When the beep was working correctly, we adjusted the code to beep every time a particle hit the wall of its volume. Once we had developed a constant volume, we made a simulation to develop pressure versus volume graphs at varying temperatures (chosen by the user).  To verify that our pressure versus volume graph was behaving as expected, we plotted Boyle’s law. Finally, we added a constant pressure graph so the user could see how kinetic energy would need to decrease if volume decreased at a constant pressure for varying temperatures. To verify that this was working correctly we found what the pressure should be based on the chosen temperature and plotted the result.</p>
+                    </section>
+                    <img src="Circuit Diagram Final Project.png" alt="Diagram of Circuit" style="width:800px;height:600px;">
+                    <section>
+                        <p>Figure 1: Above is a circuit diagram for our RP2040, DAC, and VGA</p>
+                    </section>
+                <div class="RP2040_design">
+                    <h2>RP2040 Program Design</h2>
+                    <section>
+                        <p></p>
+                    </section>
+                </div>
+                <div class="Hardware_design">
+                    <h2>Hardware Design</h2>
+                    <section>
+                        <p>Our first main objective was to adapt the boids code such that the particles collided like gas particles. From there we adapted the code so the user could input different amounts for the volume and see the different results of pressure (hitting rate per second) versus time. After getting a working model of the constant volume, we modified it by integrating a synthesized beep. When the beep was working correctly, we adjusted the code to beep every time a particle hit the wall of its volume. Once we had developed a constant volume, we made a simulation to develop pressure versus volume graphs at varying temperatures (chosen by the user).  To verify that our pressure versus volume graph was behaving as expected, we plotted Boyle’s law. Finally, we added a constant pressure graph so the user could see how kinetic energy would need to decrease if volume decreased at a constant pressure for varying temperatures. To verify that this was working correctly we found what the pressure should be based on the chosen temperature and plotted the result.
+                        </p>
+                    </section>
+                </div>
+            </div>
+            <hr>
+            <div class = "Results" style="background:grey;">
+                <h1>Results</h1>
+                    <section>
+                        <p></p>
+                    </section>
+                <div class = "Early Tests">
+                    <h2>Early Tests</h2>
+                    <section>
+                        <p></p>
+                    </section>
+                </div>
+                <div class = "Speed of Execution">
+                    <h2>Speed of Execution</h2>
+                    <section>
+                        <p></p>
+                    </section>
+                </div>
+                <div class = "Accuracy">
+                    <h2>Accuracy</h2>
+                    <section>
+                        <p></p>
+                    </section>
+                </div>
+                <div class = "Safety_enforcement">
+                    <h2>Safety Enforcement</h2>
+                    <section>
+                        <p></p>
+                    </section>
+                </div>
+                <div class = "Usability">
+                    <h2>Usability</h2>
+                    <section>
+                        <p></p>
+                    </section>
+                </div>
+            </div>
+            <hr>
+            <div class = "Conclusion" style="background:grey;">
+                <h1>Conclusion</h1>
+                    <section>
+                        <p></p>
+                    </section>
+                <div class="Results_Expectations_Future_Changes">
+                    <h2>RP2040 Program Design</h2>
+                    <section>
+                        <p></p>
+                    </section>
+                </div>
+                <div class="Intellectual_Property_Considerations">
+                    <h2>Intellectual Property Considerations</h2>
+                    <section>
+                        <p></p>
+                    </section>
+                </div>
+                <div class="Ethical_considerations">
+                    <h2>Ethical Considerations</h2>
+                    <section>
+                        <p>We created this simulation as a learning tool for students to gain greater understanding of ideal gas law and kinetic molecular theory. 
+                            Due to this interest in aiding student conceptual understanding we wanted to make our simulation accessible to a wider range of people. 
+                            The first adjustment we made was based on red-green colorblindness. 
+                            In order for the simulation to be more easily viewed, we avoided using red and green outside of a small number of particles within the simulation and plotted our graphs utilizing blue, yellow, and magenta. Another component added to our simulation was a beeping sound that occurred when particles would hit the boundary of the simulation volume. 
+                            The ability to hear the changes in pressure based on volume makes the simulation more accessible to those with visual impairments. </p>
+                    </section>
+                </div>
+                <div class="Safety_considerations">
+                    <h2>Safety Considerations</h2>
+                    <section>
+                        <p>There were no major safety concerns in this lab, as the user was interacting only with the computer and the monitor.
+                            Although if a younger child, ages 6 to 10, is running the simulation, they should not use the simulation for more than 1.5 hours as recommended by the American Academy of Pediatrics and World Health Organization.
+
+                        </p>
+                    </section>
+                </div>
+                <div class="Legal_considerations">
+                    <h2>Legal Considerations</h2>
+                    <section>
+                        <p>No major legal considerations needed to be made in this lab. </p>
+                    </section>
+                </div>
+            </div>
+            <hr>
+            <div class="Work_Distribution" style="background:grey;">
+                <h1>Work Distribution</h1>
+                <section>
+                    <p></p>
+                </section>
+            </div>
+            <hr>
+            <div class="Appendix" style="background:grey">
+                <h1>Appendix</h1>
+                <div class = "Appendix_a">
+                    <h2>Appendix A: Permisions</h2>
+                    <section>
+                        <p>The group approves this report for inclusion on the course website.</p>
+                    </section>
+                    <section>
+                        <p>The group approves the video for inclusion on the course youtube channel.</p></p>
+                    </section>
+                </div>
+                <div class = "Appendix_b">
+                    <h2>Appendix B: Commented Code</h2>
+                    <section>
+                        <p></p>
+                    </section>
+                </div>
+                <div class = "Appendix_c">
+                    <h2>Appendix C: Hardware Schematic</h2>
+                    <img src="Circuit Final Project.png" alt="Diagram of Circuit" style="width:450px;height:600px;">
+                    <section>
+                        <p>Figure 2: Above is a labeled circuit for our simulation</p>
+                    </section>
+                </div>
+                <div class = "Bill"></div>
+                    <h2>Bill of Materials</h2>
+                    <section>
+                        <p><table class = "center">
+                            <tr>
+                                <th>Component</th>
+                                <th>Source</th>
+                                <th>Unit Price</th>
+                                <th>Quantity</th>
+                            </tr>
+                            <tr>
+                                <td>RP2040</td>
+                                <td>Lab</td>
+                                <td>1</td>
+                                <td>$7.50</td>
+                            </tr>
+                            <tr>
+                                <td>DAC</td>
+                                <td>Lab</td>
+                                <td>1</td>
+                                <td>$2.11</td>
+                            </tr>
+                            <tr>
+                                <td>VGA Driver Cable</td>
+                                <td>Lab</td>
+                                <td>1</td>
+                                <td>$5.49</td>
+                            </tr>
+                            <tr>
+                                <td>3.55 mm Audio Socket</td>
+                                <td>Lab</td>
+                                <td>1</td>
+                                <td>$1.07</td>
+                            </tr>
+                            <tr>
+                                <td>Total Cost</td>
+                                <td></td>
+                                <td></td>
+                                <td>$0</td>
+                            </tr>
+                        </table>
+                        </p>
+                    </section>
+                </div>
+            </div>
+            <hr>
+            <div class = "References" style="background:grey;">
+                <h1>References</h1>
+                    <section>
+                        <p>1. Libretexts, “10.5: Kinetic molecular theory of gases,” Chemistry LibreTexts, https://chem.libretexts.org/Courses/University_of_Arkansas_Little_Rock/Chem_1402%3A_General_Chemistry_1_(Belford)/Text/10%3A_Gases/10.5%3A__Kinetic_Molecular_Theory_of_Gases (accessed Oct. 22, 2023).</p>
+                    </section>
+            </div>
+        </main>
+   </body>
+</html>
